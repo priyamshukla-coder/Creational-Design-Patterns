@@ -15,7 +15,9 @@ public class Prototype_Design_Pattern {
         obj1.book_data(); //But fetching data from here takes time and so lets ask shop 1 to give us the data of the shop//
         System.out.println(obj1);*/
 
-        shop obj1=(shop)obj.clone(); //this is shallow cloning as it is not fessabile to implement instead we must use deep cloning
+        shop obj1=obj.clone();
+        obj.getBooks().remove(2);//this is shallow cloning as it is not fessabile to implement instead we must use deep cloning
+        System.out.println(obj);//See the object after removing the index 2 book name //Deep copying 
         obj1.setShop_name("Shop 1");
         System.out.println(obj1);
     }
@@ -87,9 +89,17 @@ class shop implements Cloneable{
 
         }
     }
-
-    @Override
+    //This is shallow copying
+    /*@Override
     protected Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }*/
+    @Override
+    protected shop clone() throws CloneNotSupportedException{
+        shop obj=new shop();
+        for(Object b:this.getBooks() ){
+            obj.getBooks().add(b);
+        }
+        return obj;
     }
 }
